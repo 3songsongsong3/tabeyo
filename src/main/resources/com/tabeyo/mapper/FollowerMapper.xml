@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.tabeyo.mapper.FollowerMapper">
+	
+
+	<!-- 팔로우 기능 -->
+<!-- 	<insert id="follow">
+	</insert> -->
+	
+	<!-- 언팔로우 기능 -->
+<!-- 	<delete id="unfollow">
+	</delete> -->
+	
+	<!-- 팔로우 유무 조회 기능 -->
+	<!-- <select id="isFollow" resultType="int">
+	</select> -->
+	
+	
+	<!-- 팔로워 리스트 조회 -->
+   <select id="selectFollowerList" resultType="com.tabeyo.domain.FollowerVO">
+   	 SELECT followerUser , userId
+   	  FROM tbl_follower 
+   	 WHERE userId=#{userId}
+	</select>
+	
+
+
+</mapper>

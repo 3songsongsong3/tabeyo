@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tabeyo.mapper.ReviewReportMapper">
+	<!-- 쿼리 보관 -->
+ <!--  <sql id="criteria">
+  </sql> -->
+
+  
+  <!-- 전체 게시물 수 조회 -->
+<!--   <select id="getTotalCount" resultType="int">
+
+  </select> -->
+
+
+  
+  <!-- 신고 조회 with paging -->
+<!--  <select id="getListWithPaging" 
+  		  resultType="com.tabeyo.domain.ReviewReportVO">
+  </select> -->
+  
+
+  <!-- 신고 전체 조회 -->
+ <!--  <select id="getList" resultType="com.tabeyo.domain.ReviewReportVO">
+  </select> -->
+
+  
+  <!-- 신고 하나 조회 --> 
+<!--   <select id="read" resultType="com.tabeyo.domain.ReviewReportVO">
+  </select> -->
+  
+  
+  <!-- 신고  -->
+<!--  <insert id="insert">
+  </insert> -->
+  
+</mapper>

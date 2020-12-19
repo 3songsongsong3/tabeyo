@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.tabeyo.mapper.TimeFeedMapper">
+	
+<!-- 쿼리 보관 (검색기능인듯) -->
+<!-- <sql id="criteria">
+   	<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+ 		<foreach collection="typeArr" item='type'>
+ 			<trim prefix="OR">
+ 				<choose>
+ 					<when test="type == 'T'.toString()">
+ 						title 	LIKE '%'||#{keyword}||'%'
+ 					</when>
+ 					<when test="type == 'C'.toString()">
+ 						content	LIKE '%'||#{keyword}||'%'
+ 					</when>
+ 					<when test="type == 'W'.toString()">
+ 						writer 	LIKE '%'||#{keyword}||'%'
+ 					</when>
+ 				</choose>
+ 			</trim>
+ 		</foreach>
+  	</trim>
+  </sql> -->
+  
+  <!-- 전체 게시물 수 조회 -->
+<select id="getTotalCount" resultType="int">
+  	SELECT 	COUNT(*) 
+  	FROM 	tbl_timefeed
+  </select>
+
+  <!-- 댓글 수  변경 -->
+ <!--  <update id="updateReplyCnt">
+    UPDATE tbl_timefeed
+    SET    replyCnt = replyCnt + #{amount}
+    WHERE  fdNo = #{fdNo}
+  </update> -->
+  
+  
+  <!-- 게시물 조회 with paging -->
+<select id="getListWithPaging" 
+  		  resultType="com.tabeyo.domain.TimeFeedVO">
+ <![CDATA[
+    SELECT  fdNo, fdcontent, writer, regDate, updateDate, replyCnt,likeCount
+						    FROM   ( SELECT /*+INDEX_DESC(tbl_timefeed SYS_C007562) */
+						                    rownum rn, fdNo, fdcontent,
+						                    writer, regdate, updatedate, replyCnt ,likeCount
+						                    
+									        FROM   tbl_timefeed
+									        WHERE    
+									 	rownum <= #{pageNum} * #{amount} )
+    WHERE  rn > (#{pageNum} - 1) * #{amount}
+  ]]>
+  </select> 
+  
+  <!-- 게시물 조회 -->
+ <select id="getList" resultType="com.tabeyo.domain.TimeFeedVO">
+  <![CDATA[
+    SELECT /*+INDEX_DESC(tbl_timefeed SYS_C007562) */
+						                    rownum rn, fdNo, fdcontent,
+						                    writer, regdate, updatedate, replyCnt ,likeCount
+						                    
+									        FROM   tbl_timefeed
+									        WHERE    
+												 	userId=#{userId} 
+  ]]>
+  </select>
+  
+  
+   	<!--  타베모노가타리 유저정보 -->
+	<select id="viewMember" resultType="com.tabeyo.domain.UserVO" parameterType="String">
+		SELECT 
+			userId,nick, grade, fvrFood,fvrRes,pfContent
+		FROM 
+			tbl_users
+		WHERE 
+			userId=#{userId}
+	</select>
+
+
+	
+
+  
+  <!-- 게시물 수정 -->
+<update id="update">
+    UPDATE tbl_timefeed
+    SET     fdContent = #{fdContent},updateDate=SYSDATE,
+           writer = #{writer},userId=#{userId}
+    WHERE  fdNo = #{fdNo}
+  </update> 
+  
+  <!-- 게시물 하나 삭제 -->
+<delete id="delete">
+  	DELETE FROM tbl_timefeed WHERE fdNo = #{fdNo}
+  </delete>
+  
+  <!-- 게시물 하나 조회 --> 
+  <select id="feed" resultType="com.tabeyo.domain.TimeFeedVO">
+  	SELECT * FROM tbl_timefeed WHERE fdNo = #{fdNo}
+  </select> 
+  
+  <!-- insert만 수행 -->
+<!--  <insert id="insert">
+	INSERT INTO tbl_timefeed(fdNo, title, fdContent, writer)
+	VALUES(seq_board.NEXTVAL, #{title}, #{fdContent}, #{writer})
+  </insert> -->
+  
+  <!-- insert가 수행되고 생성된 PK를 알아야 하는 경우 -->
+		  <insert id="insertSelectKey">
+		  	<!-- PK를 미리 증가시켜서 fdNo에 저장 -->
+		  	<selectKey keyProperty="fdNo" order="BEFORE" resultType="long">
+		  		SELECT SEQ_TBL_TIMEFEED_fdNo.NEXTVAL FROM dual
+		  	</selectKey>
+		  	
+			INSERT INTO tbl_timefeed(fdNo, fdContent, writer, userId)
+			VALUES(#{fdNo}, #{fdContent}, #{writer},#{userId})
+		  </insert>
+		  
+		  
+		  
+		  
+		  
+ <!--  userID 받기 -->
+ 	<select id="getUserId" resultType="com.tabeyo.domain.UserVO" parameterType="String">
+ 			SELECT userId 
+ 				FROM tbl_users
+ 					WHERE userId=#{userId}
+ 	
+ 	</select>
+	
+<!--  좋아요 기능 -->	
+<insert id="likeIt">
+	INSERT INTO TBL_LIKE(fdNo,liker)
+		VALUES (#{fdNo},#{nickname})
+</insert>
+	
+</mapper>
