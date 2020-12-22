@@ -5,8 +5,9 @@ var replyService = (function(){
 	//댓글 등록 함수 
 	function add(reply, callback, error){
 		$.ajax({
+			//브라우저에 JSON 형태로 데이터를 보냄 
 			type: 'post',
-			url: '/replies/new',
+			url: '/tabeFR/register',
 			data: JSON.stringify(reply),
 			contentType : 'application/json; charset=UTF-8',
 			success: function(result, status, xhr){
@@ -25,14 +26,16 @@ var replyService = (function(){
 	
 	//댓글 목록 가져오기
 	function getList(param, callback, error){
-		var bno = param.bno;
+		var fdNo = param.fdNo;
 		var page = param.page || 1;
 		
-		$.getJSON("/replies/pages/" + bno + "/" + page + ".json",
+		$.getJSON("/tabeFR/pages/" + fdNo + "/" + page + ".json",
 			function(data){
 				if(callback){
-//					callback(data);
-					callback(data.replyCnt, data.list);
+						callback(data);
+					//callback(data.replyCnt, data.list);
+					// data.replyCnt, data.list 는 어디서 가져오는지 ?
+					
 				}
 			}
 		).fail(function(xhr, status, er){
@@ -43,10 +46,10 @@ var replyService = (function(){
 	}//END getList()	
 	
 	//댓글 삭제 함수 
-	function remove(rno, callback, error){
+	function remove(fdRpNo, callback, error){
 		$.ajax({
 			type: 'delete',
-			url: '/replies/' + rno,
+			url: '/tabeFR/' + fdRpNo,
 			success: function(result, status, xhr){
 				if(callback){
 					callback(result);
@@ -61,11 +64,14 @@ var replyService = (function(){
 	}//END remove()
 	
 	//댓글 수정 함수 
-	function update(reply, callback, error){
+	function update(fdRp, callback, error){
+		
+		console.log("fdRpNo : " + fdRp.fdRpNo);
+		
 		$.ajax({
 			type: 'put',
-			url: '/replies/' + reply.rno ,
-			data: JSON.stringify(reply),
+			url: '/tabeFR/' + fdRp.fdRpNo ,
+			data: JSON.stringify(fdRp),
 			contentType : 'application/json; charset=UTF-8',
 			success: function(result, status, xhr){
 				if(callback){
@@ -82,8 +88,8 @@ var replyService = (function(){
 	
 
 	//댓글 하나 가져오기
-	function get(rno, callback, error){
-		$.get("/replies/" + rno + ".json",
+	function get(fdRpNo, callback, error){
+		$.get("/tabeFR/" + fdRpNo + ".json",
 			function(data){
 				if(callback){
 					callback(data);

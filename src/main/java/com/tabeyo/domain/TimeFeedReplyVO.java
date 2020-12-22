@@ -10,7 +10,7 @@ public class TimeFeedReplyVO {
 	private Long fdNo;
 	private Long fdRpNo;
 	private String fdRpContent;
-	private String nickname;
+	private String rplWriter;
 	private Date regDate;
 	private Date updateDate;
 }

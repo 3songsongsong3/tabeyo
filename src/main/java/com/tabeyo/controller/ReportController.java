@@ -5,13 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tabeyo.service.BusinReportService;
 import com.tabeyo.service.FeedReportService;
 import com.tabeyo.service.FeedRpReportService;
-import com.tabeyo.service.FreeReportService;
-import com.tabeyo.service.ReplyReportService;
-import com.tabeyo.service.ReviewReportService;
-import com.tabeyo.service.ReviewRpReportService;
 import com.tabeyo.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -22,13 +17,8 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/report/")
 @AllArgsConstructor
 public class ReportController {
-	private BusinReportService businReportService;
 	private FeedReportService feedReportService;
 	private FeedRpReportService feedRpReportService;
-	private FreeReportService freeReportService;
-	private ReplyReportService replyReportService;
-	private ReviewReportService reviewReportService;
-	private ReviewRpReportService ReviewRpReportService;
 	private UserService userService;
 	
 	

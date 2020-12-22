@@ -11,8 +11,10 @@ import com.tabeyo.domain.TimeFeedReplyVO;
 import com.tabeyo.mapper.TimeFeedReplyMapper;
 
 import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 
 @Service
+@Log4j
 public class TimeFeedReplyServiceImpl implements TimeFeedReplyService {
 
 	@Setter(onMethod_ = @Autowired)
@@ -25,33 +27,38 @@ public class TimeFeedReplyServiceImpl implements TimeFeedReplyService {
 	}
 
 	@Override
-	public List<TimeFeedReplyVO> getList(Criteria cri, Long bno) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<TimeFeedReplyVO> getList(Criteria cri, Long fdNo) {
+		log.info("get reply List of a Feed"+fdNo);
+		
+		return timeFeedReplyMapper.getList(cri, fdNo);
 	}
 
 	@Override
-	public int modify(TimeFeedReplyVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int modify(TimeFeedReplyVO fdRpNo) {
+		log.info("remove ... "+fdRpNo);
+
+		return timeFeedReplyMapper.update(fdRpNo);
 	}
 
 	@Override
 	public int remove(Long fdRpNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		log.info("modify..."+fdRpNo );
+
+		return timeFeedReplyMapper.delete(fdRpNo);
 	}
 
 	@Override
 	public TimeFeedReplyVO get(Long fdRpNo) {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("get.... "+fdRpNo);
+		
+		return timeFeedReplyMapper.read(fdRpNo);
 	}
 
 	@Override
-	public int register(TimeFeedReplyVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int register(TimeFeedReplyVO fdRpNo) {
+		log.info("register ..."+fdRpNo);
+		
+		return timeFeedReplyMapper.insert(fdRpNo);
 	}
 
 }

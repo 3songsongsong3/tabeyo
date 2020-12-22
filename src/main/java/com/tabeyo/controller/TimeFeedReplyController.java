@@ -1,5 +1,7 @@
 package com.tabeyo.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,35 +22,26 @@ import com.tabeyo.service.TimeFeedReplyService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
-//@RestController
+@RestController
 @RequestMapping("/tabeFR/")
 @Log4j
 @AllArgsConstructor
 public class TimeFeedReplyController {
-	private TimeFeedReplyService service;
+	private TimeFeedReplyService timeFeedReplyService;
 	
-	// 댓글 불러오기
-	//@GetMapping("/get/{fdRpNo}")
-	
-	// 댓글 지우기 
-	@DeleteMapping("/remove/{fdRpNo}")
-	
-	// 댓글 작성
-	@PostMapping("/register")
-	
-	//댓글 수정 
-	@GetMapping("/modify")
-	
+	// 댓글 수정 
 	@RequestMapping(value="/{fdRpNo}", 
 	method={ RequestMethod.PUT, RequestMethod.PATCH },
 	consumes="application/json",
 	produces={ MediaType.TEXT_PLAIN_VALUE } )
-	public ResponseEntity<String> modify(@RequestBody TimeFeedReplyVO vo, 
+	public ResponseEntity<String> modify(
+							 @RequestBody TimeFeedReplyVO vo, 
 							 @PathVariable("fdRpNo") Long fdRpNo){
+		
 	log.info("ReplyController modify : " + vo);
 	log.info("ReplyController rvRno : " + fdRpNo);
 	vo.setFdRpNo(fdRpNo);
-	int modifyCount =  service.modify(vo);	//댓글 수정
+	int modifyCount =  timeFeedReplyService.modify(vo);	//댓글 수정
 	log.info("REPLY MODIFY COUNT : " + modifyCount);
 	
 	//성공이면 200, 실패면 500 반환
@@ -57,43 +50,67 @@ public class TimeFeedReplyController {
 	: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@GetMapping("/{fdRpNo}")	
+	
+	
+	// 댓글 조회 
+	@GetMapping(value="/{fdRpNo}" , 
+				produces= { MediaType.APPLICATION_XML_VALUE,
+						MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<TimeFeedReplyVO> get(@PathVariable("fdRpNo") Long fdRpNo) {
+		
 	log.info("ReplyController get : " + fdRpNo);
 	
-	return new ResponseEntity<>(service.get(fdRpNo), HttpStatus.OK);
-	}
+	return new ResponseEntity<>(timeFeedReplyService.get(fdRpNo), HttpStatus.OK);
+	} 
 	
-	@DeleteMapping("/{fdRpNo}")
+	
+	
+	//댓글 삭제 
+	@DeleteMapping(value="/{fdRpNo}" , 
+			produces= { MediaType.TEXT_PLAIN_VALUE})
 	//@PreAuthorize("principal.username == #vo.userId")	//댓글 작성자 확인
-	public ResponseEntity<String> remove(@PathVariable("fdRpNo") Long fdRpNo,
-							 @RequestBody TimeFeedReplyVO vo) {
+	public ResponseEntity<String> remove(@PathVariable("fdRpNo") Long fdRpNo) {
+		
 	log.info("ReplyController remove : " + fdRpNo);
 	
-	return service.remove(fdRpNo) == 1
+	return timeFeedReplyService.remove(fdRpNo) == 1
 	   ? new ResponseEntity<>("success", HttpStatus.OK)
 	   : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@GetMapping("/pages/{fdRpNo}/{page}")
+	
+	
+	// 댓글 목록 출력 
+	@GetMapping(value = "/pages/{fdNo}/{page}",
+				produces ={ MediaType.APPLICATION_XML_VALUE,
+						MediaType.APPLICATION_JSON_UTF8_VALUE})
 	//public ResponseEntity<List<ReplyVO>> getList(
-	public ResponseEntity<TimeFeedReplyPageDTO> getList(
+	public ResponseEntity<List<TimeFeedReplyVO>> getList(
 				@PathVariable("page") int page,
 				@PathVariable("fdNo") Long fdNo ) {
+		
 	log.info("ReplyController getList : ");
 	Criteria cri = new Criteria(page, 10);
 	log.info("ReplyController cri : " + cri);
 	//return new ResponseEntity<>(service.getList(cri, bno), HttpStatus.OK);
-	return new ResponseEntity<>(service.getListPage(cri, fdNo), HttpStatus.OK);
+	return new ResponseEntity<>(timeFeedReplyService.getList(cri, fdNo), HttpStatus.OK);
 	}
 	
+	
+	
+	
+	
+	// 댓글 등록
 	@PostMapping(value="/register",
 	 consumes="application/json",
 	 produces= { MediaType.TEXT_PLAIN_VALUE } )
 //	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> create(@RequestBody TimeFeedReplyVO vo){
+		
 	log.info("ReviewReplyController create vo : " + vo);
-	int insertCount =  service.register(vo);	//댓글 등록
+	
+	int insertCount =  timeFeedReplyService.register(vo);	//
+	
 	log.info("REPLY INSERT COUNT : " + insertCount);
 	
 	//성공이면 200, 실패면 500 반환

@@ -83,57 +83,77 @@
         </button>
 
     
+      	<c:choose>
+			<c:when test="${empty timeFeed.replyCnt }">
+				  <hr class="my-4">
+					      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					        <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
+					        <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+					      </svg>
+					      <span class="lead" style="margin-top: 10px; margin-left: 10px;">댓글이 없습니다.</span>
+			</c:when>		
+			<c:otherwise>
+					  <hr class="my-4">
+					      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					        <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
+					        <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+					      </svg>
+					      <span class="lead" style="margin-top: 10px; margin-left: 10px;"> 댓글이 ${timeFeed.replyCnt }개 있습니다.</span>
+			</c:otherwise>
+	</c:choose>
     <br>
       <!-- 댓글 목록 -->
-      	<c:choose>
-							<c:when test="${empty timeFeed.replyCnt }">
-								  <hr class="my-4">
-									      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-									        <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
-									        <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-									      </svg>
-									      <span class="lead" style="margin-top: 10px; margin-left: 10px;">댓글이 없습니다.</span>
-							</c:when>		
-							<c:otherwise>
-									  <hr class="my-4">
-									      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-									        <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
-									        <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-									      </svg>
-									      <span class="lead" style="margin-top: 10px; margin-left: 10px;"> 댓글이 ${timeFeed.replyCnt }개 있습니다.</span>
-							</c:otherwise>
-	</c:choose>
+      	<hr class="my-4">
+     	 <div class="panel-body">
+     	 	<ul class="chat">
+     	 		<li class="left clearfix" data-fdRpNo='5'>
+     	 			<div>
+     	 				<div class="header">
+	     	 				<img alt="profile" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkYvq7zWeYgf2yDxPRExBk-l4hhCzk6FyhWA&usqp=CAU" 
+						     style="margin-right: 20px ;width: 50px; height: 55px; border-radius: 70%;">
+     	 					<!--작성자 닉네임 -->
+     	 					<strong class="primary-font">GD</strong>
+     	 					
+     	 				</div>
+     	 				
+     	 				<p style="margin-top:10px;">댓글 테스트</p>
+     	 				<small style="margin-top:-5px;">2020-12-22:12:33</small>
+     	 			</div>
+     	 		</li>
+     	 	</ul>
+     	 </div>
+     
 	<br>
 	
 	<!--  댓글 목록 -->
-	   	<c:choose>
-							<c:when test="${empty feed.replyCnt }">
-							
+				   	<c:choose>
+			<c:when test="${empty feed.replyCnt }">
+			
+			</c:when>		
+			<c:otherwise>
+					<img alt="profile" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkYvq7zWeYgf2yDxPRExBk-l4hhCzk6FyhWA&usqp=CAU" 
+					     style="margin-right: 20px ;width: 50px; height: 55px; border-radius: 70%;">
+					      <strong><span style="margin-right: 10px;">우주</span></strong> <span> 1등 </span>
+					      <svg style="margin-left: 100px;" width="2em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+					    </svg><br>
+			      				<!--  댓글 작성 or 수정 시간 -->
+    				<c:choose>
+							<c:when test="${feed.updateDate eq feed.regDate }">
+								<!--  수정하지 않은 피드일 때  -->
+									<span style="height: 10px; color: rosybrown; margin-left: 90px; font-size: 0.8em; margin-bottom: 10px; margin-top: 2px; " class="lead" style="margin-top: 2px;">
+												등록일 : <fmt:formatDate value="${feed.regDate }"
+                          									type="both" dateStyle="short" timeStyle="short"/></span>
 							</c:when>		
 							<c:otherwise>
-												<img alt="profile" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkYvq7zWeYgf2yDxPRExBk-l4hhCzk6FyhWA&usqp=CAU" 
-												     style="margin-right: 20px ;width: 50px; height: 55px; border-radius: 70%;">
-												      <strong><span style="margin-right: 10px;">우주</span></strong> <span> 1등 </span>
-												      <svg style="margin-left: 100px;" width="2em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-													  <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-												    </svg><br>
-										      				<!--  댓글 작성 or 수정 시간 -->
-										      				<c:choose>
-																			<c:when test="${feed.updateDate eq feed.regDate }">
-																				<!--  수정하지 않은 피드일 때  -->
-																					<span style="height: 10px; color: rosybrown; margin-left: 90px; font-size: 0.8em; margin-bottom: 10px; margin-top: 2px; " class="lead" style="margin-top: 2px;">
-																								등록일 : <fmt:formatDate value="${feed.regDate }"
-										                            									type="both" dateStyle="short" timeStyle="short"/></span>
-																			</c:when>		
-																			<c:otherwise>
-																					<span style="height: 10px; color: rosybrown; margin-left: 90px; font-size: 0.8em; margin-bottom: 10px; margin-top: 2px;" class="lead" >
-																							수정일 : <fmt:formatDate value="${feed.updateDate }"
-										                            									type="both" dateStyle="short" timeStyle="short"/></span>
-																			</c:otherwise>
-																	</c:choose>
-										      <br> 
+									<span style="height: 10px; color: rosybrown; margin-left: 90px; font-size: 0.8em; margin-bottom: 10px; margin-top: 2px;" class="lead" >
+											수정일 : <fmt:formatDate value="${feed.updateDate }"
+                          									type="both" dateStyle="short" timeStyle="short"/></span>
 							</c:otherwise>
-	</c:choose>
+					</c:choose>
+			      <br> 
+							</c:otherwise>
+			</c:choose>
       
       <!-- END 댓글 목록-->    
       <hr>
@@ -149,6 +169,20 @@
     <!-- End Follow List Container-->
     </div>
     <!-- 1 End TimeLine Container-->
+    
+<!-- reply.js 모듈 -->
+<script type="text/javascript"  src="/resources/js/reply.js" ></script>
+<script type="text/javascript">
+	console.log("==============");
+	console.log("JS TEST");
+	
+	var fdNoValue ='<c:out value="${feed.fdNo }"/>';
+	
+	
+	
+
+</script>
+
 
 <!-- 버튼 이벤트  -->
 <script>

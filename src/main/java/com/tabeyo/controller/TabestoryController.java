@@ -34,7 +34,6 @@ import com.tabeyo.mapper.FollowingMapper;
 import com.tabeyo.mapper.TimeFeedMapper;
 import com.tabeyo.service.FollowerService;
 import com.tabeyo.service.FollowingService;
-import com.tabeyo.service.ReviewService;
 import com.tabeyo.service.TimeFeedService;
 import com.tabeyo.service.UserService;
 
@@ -49,7 +48,6 @@ public class TabestoryController {
 	private TimeFeedService timeFeedService;
 	private FollowingService followingService;
 	private FollowerService followerService;
-	private ReviewService reviewService;
 	
 	//타임라인 목록  (피드, 리뷰 같이 띄워야) (리뷰,피드 service 아마 ok?)  
 	@GetMapping("/timelineList")
