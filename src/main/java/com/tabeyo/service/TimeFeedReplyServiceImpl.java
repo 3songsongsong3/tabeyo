@@ -22,8 +22,11 @@ public class TimeFeedReplyServiceImpl implements TimeFeedReplyService {
 	
 	@Override
 	public TimeFeedReplyPageDTO getListPage(Criteria cri, Long fdNo) {
-		// TODO Auto-generated method stub
-		return null;
+
+
+		return new TimeFeedReplyPageDTO(
+				timeFeedReplyMapper.getListWithPaging(cri, fdNo),
+				timeFeedReplyMapper.getCountByFdno(fdNo));
 	}
 
 	@Override

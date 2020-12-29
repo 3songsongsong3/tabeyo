@@ -7,29 +7,28 @@
 
 	
 	  <!--   전체 댓글 수 조회 -->
-<!-- 	  <select id="getCountByBno" resultType="int"> -->
-<!-- 	  <![CDATA[
-	  	SELECT 	COUNT(rno) 
-	  	FROM 	tbl_reply 
-	  	WHERE 	bno = #{bno}
-	  ]]> -->
-<!-- 	  </select> -->
+ 	  <select id="getCountByFdno" resultType="int"> 
+	  <![CDATA[
+	  	SELECT 	COUNT(fdrpno) 
+	  	FROM 	tbl_timefeed_reply
+	  	WHERE 	fdno = #{fdNo}
+	  ]]> 
+ 	  </select> 
 	  
 	  <!-- 댓글 목록 조회 with paging - AFTER -->
-<!-- 	  <select id="getListWithPaging" 
-	  		  resultType="com.tabeyo.domain.TimeFeedReplyVO"> -->
-	  	<!-- <![CDATA[	  
-		    SELECT   rno, bno, reply, replyer, replydate, updatedate 
-		    FROM     ( SELECT /*+INDEX(tbl_reply idx_reply) */
-		                      rownum rn, rno, bno, reply, replyer,
-		                      replydate, updatedate
-		              FROM    tbl_reply
-		              WHERE   bno = #{bno}
-		              AND	  rno > 0
+	  <select id="getListWithPaging" 
+	  		  resultType="com.tabeyo.domain.TimeFeedReplyVO"> 
+	  	 <![CDATA[	  
+		    SELECT   fdno,fdrpno,fdrpcontent,rplwriter,regdate,updatedate 
+		    FROM     ( SELECT /*+INDEX(tbl_timefeed_reply SYS_C007575) */
+		                      rownum rn, fdno,fdrpno,fdrpcontent,rplwriter,regdate,updatedate 
+		              FROM    tbl_timefeed_reply
+		              WHERE   fdno = #{fdNo}
+		              AND	  fdrpno > 0
 		              AND 	  rownum <= #{cri.pageNum} * #{cri.amount} )
 		    WHERE    rn > (#{cri.pageNum} - 1) * #{cri.amount}
-		 ]]> -->
-	<!--   </select> -->
+		 ]]> 
+	  </select>
 	  
 	  <!-- 댓글 목록 조회 with paging - BEFORE -->
 	  <select id="getList"  

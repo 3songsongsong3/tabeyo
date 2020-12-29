@@ -26,8 +26,11 @@
       background-image: url(http://gahyun.wooga.kr/main/img/testImg/star_on.png);
     }
    </style>
-     <!-- 1 TimeLine Container-->
-<div style="display: flex; justify-content: center; margin-top: 50px;">
+   
+    <!-- reply.js 모듈 -->
+	<script type="text/javascript"  src="/resources/js/reply.js" ></script>
+    <!-- 1 TimeLine Container-->
+	<div style="display: flex; justify-content: center; margin-top: 50px;">
     <!-- Follow List Container-->
     
         <div class="jumbotron" style="width: 450px; padding-top: 15px; padding-bottom: 15px;">
@@ -83,6 +86,9 @@
         </button>
 
     
+    
+    
+    
       	<c:choose>
 			<c:when test="${empty timeFeed.replyCnt }">
 				  <hr class="my-4">
@@ -102,9 +108,11 @@
 			</c:otherwise>
 	</c:choose>
     <br>
+    
+    
       <!-- 댓글 목록 -->
-      	<hr class="my-4">
      	 <div class="panel-body">
+     	 
      	 	<ul class="chat">
      	 		<li class="left clearfix" data-fdRpNo='5'>
      	 			<div>
@@ -113,6 +121,9 @@
 						     style="margin-right: 20px ;width: 50px; height: 55px; border-radius: 70%;">
      	 					<!--작성자 닉네임 -->
      	 					<strong class="primary-font">GD</strong>
+     	 					  <span class="pull-right text-muted"><svg style="margin-left: 100px;" width="2em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+					    </svg></span>
      	 					
      	 				</div>
      	 				
@@ -124,15 +135,15 @@
      	 </div>
      
 	<br>
+		
 	
-	<!--  댓글 목록 -->
-				   	<c:choose>
-			<c:when test="${empty feed.replyCnt }">
-			
-			</c:when>		
-			<c:otherwise>
-					<img alt="profile" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkYvq7zWeYgf2yDxPRExBk-l4hhCzk6FyhWA&usqp=CAU" 
-					     style="margin-right: 20px ;width: 50px; height: 55px; border-radius: 70%;">
+			<c:choose>
+				<c:when test="${empty feed.replyCnt }">
+				
+				</c:when>		
+				<c:otherwise>
+						<img alt="profile" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkYvq7zWeYgf2yDxPRExBk-l4hhCzk6FyhWA&usqp=CAU" 
+						     style="margin-right: 20px ;width: 50px; height: 55px; border-radius: 70%;">
 					      <strong><span style="margin-right: 10px;">우주</span></strong> <span> 1등 </span>
 					      <svg style="margin-left: 100px;" width="2em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						  <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
@@ -156,28 +167,287 @@
 			</c:choose>
       
       <!-- END 댓글 목록-->    
+     
+     
+     
       <hr>
       <!-- 댓글 쓰기-->
     
       <div style="display: flex;">
-        <input type="text" class="form-control"  id="inputDefault" style="width: 300px;">
-        <button type="button" class="btn btn-primary btn-lg " style="width: 70px; font-size: 0.5em;" >
+        <input type="text" class="form-control"  id="replyContent" placeholder="댓글을 작성 해보세요." style="width: 300px;">
+        <button id='addReplyBtn' type="button" class="btn btn-primary btn-lg " style="width: 70px; font-size: 0.5em;" >
           작성
          </button>
         </div>
+        
+        <!--  댓글 페이징 -->
+        <div class="panel-footer" style="margin-top:10px;">
+        	
+        </div>
+        
         </div>
     <!-- End Follow List Container-->
     </div>
     <!-- 1 End TimeLine Container-->
-    
-<!-- reply.js 모듈 -->
-<script type="text/javascript"  src="/resources/js/reply.js" ></script>
+ 
+ 
+ <!--  Modal -->
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" 
+                  		  data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="myModalLabel">
+                  		REPLY MODAL</h4>
+              </div>
+              <div class="modal-body">
+				<div class="form-group">
+					<label>댓글 내용</label>
+					<input class="form-control" 
+						   name="fdRpContent" value="new reply!!">
+				</div>
+				<div class="form-group">
+					<label>작성자</label>
+					<input class="form-control" 
+						   name="rplWriter" value="user00">
+				</div>
+				<div class="form-group">
+					<label>작성일</label>
+					<input class="form-control" 
+						   name="regDate" value="2020-11-03 14:41">
+				</div>
+              </div><!-- END modal-body -->
+              
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" 
+                  		  id='modalModBtn'>Modify</button>
+                  <button type="button" class="btn btn-danger" 
+                  		  id='modalRemoveBtn'>Remove</button>
+                  <button type="button" class="btn btn-default" 
+                  		  id='modalCloseBtn' data-dismiss='modal'>
+                  		  						Close</button>
+              </div>
+          </div>	<!-- /.modal-content -->
+      </div>		<!-- /.modal-dialog -->
+  </div>			<!-- /.modal -->
+  <!-- END 댓글 모달 창 -->
+
 <script type="text/javascript">
 	console.log("==============");
 	console.log("JS TEST");
 	
-	var fdNoValue ='<c:out value="${feed.fdNo }"/>';
 	
+	$(document).ready(function(){
+		var fdNoValue ='<c:out value="${feed.fdNo }"/>';
+		var replyUL = $(".chat");
+		
+		var pageNum = 1; 
+		var replyPageFooter = $(".panel-footer");
+		
+		function showReplyPage(replyCnt){
+			
+			var endNum = Math.ceil(pageNum / 10.0)* 10;
+			var startNum = endNum - 9 ; 
+			
+			var prev = startNum != 1;
+			var next = false;
+			
+			if(endNum * 10 >= replyCnt){
+				endNum = Math.ceil(replyCnt/10.0);
+			}
+			
+			if(endNum * 10 < replyCnt){
+				next = true;
+			}
+			
+			var str = "<ul class='pagination pull-right'>"; 
+			
+			if(prev){
+				str += "<li class='page-item'><a class='page-link' href='"+(startNum-1)+"'>previous</a></li>";  
+				
+			}
+			for (var i = startNum ; i<=endNum; i ++){
+				var active = pageNum == i? "active":"";
+				str += "<li class='page-item "+active+" '><a class= 'page-link' href='"+i+"'> "+i+"</a></li>";
+			}
+			if(next){
+				str += "<li class='page-item'><a class= 'page-link' href='"+(endNum+1)+"'>Next</a><li> "
+			}
+			
+			str += "</ul></div>" ; 
+			console.log(str); 
+			replyPageFooter.html(str); 
+		}
+		
+		showList(1);
+		
+		function showList(page){
+			// page 가 -1  = 마지막 페이지 
+			console.log("Show list page : "+page);
+			
+			replyService.getList({fdNo:fdNoValue,page: page||1},function(replyCnt,list){
+				
+				console.log("replyCnt : "+replyCnt);
+				console.log("list : "+ list);
+				
+				// 마지막 페이지 찾아서 호출 
+				if( page == -1){
+					pageNum = Math.ceil(replyCnt/10.0);
+					showList(pageNum);
+					return;
+				}
+				
+				var str="";
+				
+				if(list== null ||list.length == 0){					
+					return;
+				}
+				for (var i=0, len = list.length||0 ; i < len; i ++){
+					str += "<hr class='my-4'>"
+					str += "<li class='left clearfix' data-fdRpNo='"+list[i].fdRpNo+"'>";
+					str += " <div><div class='header'><strong class='primary-font'>"+list[i].rplWriter+"</strong>";
+					str += "		<small class='pull-right text-muted'>"+replyService.displayTime(list[i].regDate)+"</small></div>";
+					str += "   <p>"+list[i].fdRpContent+"</p></div></li>"
+				}
+				replyUL.html(str);
+				
+				showReplyPage(replyCnt);
+			})// end function 
+		}//end showList
+		// 댓글 페이징 버튼 클릭 이벤트 
+		replyPageFooter.on("click","li a",function(e){
+			e.preventDefault();
+			console.log("page click");
+			
+			var targetPageNum = $(this).attr("href");
+			
+			console.log("targetPageNum : "+ targetPageNum);
+			
+			pageNum = targetPageNum;
+			
+			showList(pageNum);
+			
+		});
+		
+
+		// 댓글 등록 이벤트
+		// DOM객체 필요한것들 . 
+		// 댓글 등록 인풋 , 등록 버튼 객체 
+		var rgContent = $("#replyContent");
+		var rgBtn =$("#addReplyBtn");
+		
+		
+		rgBtn.on("click",function(e){
+			
+			var reply = {
+					fdRpContent: rgContent.val(),
+					//로그인처리가 되지 않은 상황에서 작성자 닉네임 넣기는 힘들어서 , 임의의 값을 넣기로.
+					rplWriter: "dbwls2241",
+					fdNo: fdNoValue
+			};
+			
+			replyService.add(reply,function(result){
+				
+				alert(result);
+				
+				rgContent.val(" ");
+				
+				showList(-1);
+			});
+			
+			
+		});
+		
+		
+		// 모달 객체 생성 
+	 	var modal = $('#myModal');
+	 	var modalInputReply 	= modal.find("input[name='fdRpContent']");	//댓글
+	 	var modalInputReplyer 	= modal.find("input[name='rplWriter']");	//작성자
+	 	var modalInputReplyDate = modal.find("input[name='regDate']");//작성일자
+	 	
+	 	var modalModBtn 	 = $('#modalModBtn'); 		//수정 버튼
+	 	var modalRemoveBtn 	 = $('#modalRemoveBtn'); 	//삭제 버튼
+
+	 	
+	 	
+		// 댓글 클릭 이벤트 모달창 보여줘야됨 
+		$('.chat').on('click','li',function(){
+				
+			// 오류 . http://localhost:8070/tabeFR/[object%20Object].json 400
+			/* var fdRpNo = $(this).data(fdRpNo); 일때 . */
+			
+			
+			/* var fdRpNo = $(this).data('fdRpNo'); */
+			/* 'fdRpNo'로 했을때 undefined 문제 */
+			
+			var fdRpNo = $(this).data(fdRpNo);
+			var tem = fdRpNo;			
+			var temp = tem.fdrpno;
+			
+			console.log(typeof fdRpNo);
+			console.log(fdRpNo);
+				
+			replyService.get(temp,  function(data){
+				
+					console.log(data);
+				    modalInputReply.val(data.fdRpContent);		//댓글 표시
+				 	modalInputReplyer.val(data.rplWriter);	//작성자 표시
+				 	modalInputReplyDate						//작성일 표시 및 읽기 전용 처리
+				 		.val(replyService.displayTime(data.regDate))
+				 		.attr('readonly','readonly'); 
+		
+				 	modal.data('fdRpNo', data.fdRpNo);			//댓글 번호 저장
+				 	
+				 	modalInputReplyDate.closest('div').show();			//작성일자 보이기	
+			 		modal.find('button[id != modalCloseBtn]').hide();	//닫기 버튼 이외 숨기기
+			 		modalModBtn.show();			//수정 버튼 보이기
+			 		modalRemoveBtn.show();		//삭제 버튼 보이기
+			 		
+			 		$('.modal').modal('show');	//모달창 보이기 
+			});
+		}); // end 댓글 클릭 이벤트 
+		//댓글 수정 버튼 이벤트 처리
+	 	modalModBtn.on('click', function(){
+	 		var reply = { 
+	 			fdRpNo		: modal.data('fdRpNo'), 
+	 			fdRpContent	: modalInputReply.val()
+	 		}
+	 		
+	 		//replyService의 update 함수 호출
+		 	replyService.update(
+		 			reply,
+			 	    function(result){
+			 		    alert(result);
+			 		    modal.modal('hide');	//모달창 숨기기
+	 		 	 		showList(pageNum);			//수정 댓글 목록 가져오기
+			 		   // showList(pageNum);	
+			 	    } 
+		 	);//END update()
+	 	});//END 댓글 수정 버튼 이벤트 처리
+
+	 	//댓글 삭제 버튼 이벤트 처리
+	 	modalRemoveBtn.on('click', function(){
+	 		var fdRpNo	= modal.data('fdRpNo');
+	 		
+	 		//replyService의 remove 함수 호출
+		 	 replyService.remove(fdRpNo, function(count){
+			 		console.log("replyService.remove count : " + count);
+			 		if(count == 'success'){
+			 			alert('remove ok');
+			 		    modal.modal('hide');	//모달창 숨기기
+	 		 	 		showList(pageNum);			//수정 댓글 목록 가져오기
+			 		 
+			 		}
+			 	}, function(er){
+			 		alert('remove error');
+			 	}
+		 	 );//END remove
+	 	});//END 댓글 삭제 버튼 이벤트 처리
+		
+		
+		
+	}); //  end main function 
 	
 	
 

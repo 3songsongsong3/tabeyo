@@ -14,7 +14,8 @@ public interface TimeFeedReplyMapper {
 	
 	
 	
-	public TimeFeedReplyPageDTO getListPage(Criteria cri, Long fdRpNo);
+	public List<TimeFeedReplyVO> getListWithPaging(@Param("cri") Criteria cri,@Param("fdNo") Long fdNo);
+	public int getCountByFdno(Long fdNo);
 	public List<TimeFeedReplyVO> getList(@Param("cri") Criteria cri,@Param("fdNo") Long fdNo);
 	public int update(TimeFeedReplyVO fdRpNo);
 	public int delete(Long fdRpNo);

@@ -55,7 +55,8 @@ public class TimeFeedReplyController {
 	// 댓글 조회 
 	@GetMapping(value="/{fdRpNo}" , 
 				produces= { MediaType.APPLICATION_XML_VALUE,
-						MediaType.APPLICATION_JSON_UTF8_VALUE})
+						MediaType.APPLICATION_JSON_UTF8_VALUE
+				})
 	public ResponseEntity<TimeFeedReplyVO> get(@PathVariable("fdRpNo") Long fdRpNo) {
 		
 	log.info("ReplyController get : " + fdRpNo);
@@ -85,15 +86,19 @@ public class TimeFeedReplyController {
 				produces ={ MediaType.APPLICATION_XML_VALUE,
 						MediaType.APPLICATION_JSON_UTF8_VALUE})
 	//public ResponseEntity<List<ReplyVO>> getList(
-	public ResponseEntity<List<TimeFeedReplyVO>> getList(
+	public ResponseEntity<TimeFeedReplyPageDTO> getList(
 				@PathVariable("page") int page,
 				@PathVariable("fdNo") Long fdNo ) {
 		
 	log.info("ReplyController getList : ");
+	
 	Criteria cri = new Criteria(page, 10);
+	
+	log.info("get Reply List fdNo : "+fdNo);
 	log.info("ReplyController cri : " + cri);
+	
 	//return new ResponseEntity<>(service.getList(cri, bno), HttpStatus.OK);
-	return new ResponseEntity<>(timeFeedReplyService.getList(cri, fdNo), HttpStatus.OK);
+	return new ResponseEntity<>(timeFeedReplyService.getListPage(cri, fdNo), HttpStatus.OK);
 	}
 	
 	

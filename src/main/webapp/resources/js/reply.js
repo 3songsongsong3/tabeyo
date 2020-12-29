@@ -32,9 +32,10 @@ var replyService = (function(){
 		$.getJSON("/tabeFR/pages/" + fdNo + "/" + page + ".json",
 			function(data){
 				if(callback){
-						callback(data);
-					//callback(data.replyCnt, data.list);
-					// data.replyCnt, data.list 는 어디서 가져오는지 ?
+						// callback(data); 댓글만 가져오는 경우 
+						callback(data.replyCnt, data.list);
+						// 댓글 숫자와 목록을 가져오는 경우 
+						// data.replyCnt, data.list 는 어디서 가져오는지 ?
 					
 				}
 			}
