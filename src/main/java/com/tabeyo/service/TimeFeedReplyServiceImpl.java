@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tabeyo.domain.Criteria;
 import com.tabeyo.domain.TimeFeedReplyPageDTO;
 import com.tabeyo.domain.TimeFeedReplyVO;
+import com.tabeyo.domain.TimeFeedVO;
+import com.tabeyo.mapper.TimeFeedMapper;
 import com.tabeyo.mapper.TimeFeedReplyMapper;
 
 import lombok.Setter;
@@ -19,6 +22,11 @@ public class TimeFeedReplyServiceImpl implements TimeFeedReplyService {
 
 	@Setter(onMethod_ = @Autowired)
 	private TimeFeedReplyMapper timeFeedReplyMapper;
+	
+	// Transactional 처리를 위해 TimeFeedMapper 주입  20201230 
+	@Setter(onMethod_ = @Autowired)
+	private TimeFeedMapper timeFeedMapper;
+	
 	
 	@Override
 	public TimeFeedReplyPageDTO getListPage(Criteria cri, Long fdNo) {
@@ -43,12 +51,7 @@ public class TimeFeedReplyServiceImpl implements TimeFeedReplyService {
 		return timeFeedReplyMapper.update(fdRpNo);
 	}
 
-	@Override
-	public int remove(Long fdRpNo) {
-		log.info("modify..."+fdRpNo );
-
-		return timeFeedReplyMapper.delete(fdRpNo);
-	}
+	
 
 	@Override
 	public TimeFeedReplyVO get(Long fdRpNo) {
@@ -57,11 +60,28 @@ public class TimeFeedReplyServiceImpl implements TimeFeedReplyService {
 		return timeFeedReplyMapper.read(fdRpNo);
 	}
 
+	// 20201230 Transactional 추가
+	@Transactional
 	@Override
 	public int register(TimeFeedReplyVO fdRpNo) {
 		log.info("register ..."+fdRpNo);
 		
+		timeFeedMapper.updateReplyCnt(fdRpNo.getFdNo(), 1);
+		
 		return timeFeedReplyMapper.insert(fdRpNo);
 	}
+	// 20201230 Transactional 추가
+		@Transactional
+		@Override
+		public int remove(Long fdRpNo) {
+			log.info("modify..."+fdRpNo );
 
+			// 게시물 번호를 알아야 함 . 
+			
+			TimeFeedReplyVO vo = timeFeedReplyMapper.read(fdRpNo);
+			timeFeedMapper.updateReplyCnt(vo.getFdNo(), -1);
+			
+			
+			return timeFeedReplyMapper.delete(fdRpNo);
+		}
 }

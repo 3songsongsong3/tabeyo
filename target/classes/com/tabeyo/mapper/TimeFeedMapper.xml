@@ -137,4 +137,11 @@
 		VALUES (#{fdNo},#{nickname})
 </insert>
 	
+<!-- 댓글 개수 -->
+<update id="updateReplyCnt">
+	 update tbl_timefeed set replycnt = replycnt + #{amount} 
+	 where fdno= #{fdNo}
+</update>
+
+	
 </mapper>

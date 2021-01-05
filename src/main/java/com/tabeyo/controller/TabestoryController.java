@@ -49,7 +49,7 @@ public class TabestoryController {
 	private FollowingService followingService;
 	private FollowerService followerService;
 	
-	//타임라인 목록  (피드, 리뷰 같이 띄워야) (리뷰,피드 service 아마 ok?)  
+	//타임라인 목록 
 	@GetMapping("/timelineList")
 	public void timelinelist(@RequestParam 	String userId,Model model) {
 		log.info("TabeStoryController...timelineList()");
@@ -63,13 +63,9 @@ public class TabestoryController {
 		log.info("타임라인 리스트 userID = "+timeFeedService.getUserId(userId));
 		
 		
-		//log.info(timeFeedService.getList(userId));
-		
-		// int total = timeFeedService.getTotalCount(cri);
-		  
+	
 		 model.addAttribute("list", timeFeedService.getList(userId));
 		 
-		// model.addAttribute("pageMaker", new PageDTO(total, cri));
 	
 	}
 	

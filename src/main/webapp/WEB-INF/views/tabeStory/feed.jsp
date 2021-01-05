@@ -88,8 +88,8 @@
     
     
     
-    
-      	<c:choose>
+      <!-- 댓글 개수 표시 -->
+      <c:choose>
 			<c:when test="${empty timeFeed.replyCnt }">
 				  <hr class="my-4">
 					      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -135,37 +135,7 @@
      	 </div>
      
 	<br>
-		
 	
-			<c:choose>
-				<c:when test="${empty feed.replyCnt }">
-				
-				</c:when>		
-				<c:otherwise>
-						<img alt="profile" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkYvq7zWeYgf2yDxPRExBk-l4hhCzk6FyhWA&usqp=CAU" 
-						     style="margin-right: 20px ;width: 50px; height: 55px; border-radius: 70%;">
-					      <strong><span style="margin-right: 10px;">우주</span></strong> <span> 1등 </span>
-					      <svg style="margin-left: 100px;" width="2em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						  <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-					    </svg><br>
-			      				<!--  댓글 작성 or 수정 시간 -->
-    				<c:choose>
-							<c:when test="${feed.updateDate eq feed.regDate }">
-								<!--  수정하지 않은 피드일 때  -->
-									<span style="height: 10px; color: rosybrown; margin-left: 90px; font-size: 0.8em; margin-bottom: 10px; margin-top: 2px; " class="lead" style="margin-top: 2px;">
-												등록일 : <fmt:formatDate value="${feed.regDate }"
-                          									type="both" dateStyle="short" timeStyle="short"/></span>
-							</c:when>		
-							<c:otherwise>
-									<span style="height: 10px; color: rosybrown; margin-left: 90px; font-size: 0.8em; margin-bottom: 10px; margin-top: 2px;" class="lead" >
-											수정일 : <fmt:formatDate value="${feed.updateDate }"
-                          									type="both" dateStyle="short" timeStyle="short"/></span>
-							</c:otherwise>
-					</c:choose>
-			      <br> 
-							</c:otherwise>
-			</c:choose>
-      
       <!-- END 댓글 목록-->    
      
      
@@ -276,7 +246,6 @@
 			}
 			
 			str += "</ul></div>" ; 
-			console.log(str); 
 			replyPageFooter.html(str); 
 		}
 		
@@ -289,7 +258,6 @@
 			replyService.getList({fdNo:fdNoValue,page: page||1},function(replyCnt,list){
 				
 				console.log("replyCnt : "+replyCnt);
-				console.log("list : "+ list);
 				
 				// 마지막 페이지 찾아서 호출 
 				if( page == -1){

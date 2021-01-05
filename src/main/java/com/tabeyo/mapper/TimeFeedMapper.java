@@ -8,8 +8,7 @@ import com.tabeyo.domain.TimeFeedVO;
 import com.tabeyo.domain.UserVO;
 
 public interface TimeFeedMapper {
-		public void updateReplyCnt(@Param("fdNo") Long fdNo,
-			   @Param("amount") int amount);
+
 
 		//전체 게시물 수 가져오기
 		public int getTotalCount(Criteria cri);
@@ -46,4 +45,6 @@ public interface TimeFeedMapper {
 		// 좋아요 개수 추가 
 		public int likeCount(TimeFeedVO board) ;
 		
+		// 댓글 개수 갱신  
+		public void updateReplyCnt(@Param("fdNo") Long fdNo, @Param("amount") int amount);
 }

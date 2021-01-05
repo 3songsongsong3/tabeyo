@@ -9,7 +9,8 @@ import lombok.Data;
 public class TimeFeedVO {
 	
 	private List<TimeFeedAttachVO> attachList;
-	private Long replyCnt;
+	private int replyCnt;
+	
 	private Long fdNo;
 	private String fdContent;
 	private String userId;

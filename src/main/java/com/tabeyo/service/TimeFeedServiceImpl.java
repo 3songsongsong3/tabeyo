@@ -80,8 +80,6 @@ public class TimeFeedServiceImpl implements TimeFeedService {
 	}
 
 
-
-	//2020.12.10 타베모노가타리 추가 
 		@Override
 		public UserVO viewMember(String userId) {
 				
