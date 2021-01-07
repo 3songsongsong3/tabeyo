@@ -69,6 +69,8 @@ $(function(){
 	var maxSize = 5242880;		//최대 업로드 크기
 	
 	function checkExtension(fileName, fileSize){
+		console.log("checkExtension");
+		
 		if(fileSize >= maxSize){
 			alert('파일 사이즈(5MB) 초과');
 			return false;
@@ -85,6 +87,9 @@ $(function(){
 	var cloneObj = $('.uploadDiv').clone();
 	
 	$('#uploadBtn').on('click', function(){
+		
+		console.log("uploadBtn clicked ");
+		
 		var formData = new FormData();
 		var inputFile = $("input[name='uploadFile']");
 		var files = inputFile[0].files;

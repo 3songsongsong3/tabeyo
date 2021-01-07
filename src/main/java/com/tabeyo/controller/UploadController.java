@@ -164,7 +164,7 @@ public class UploadController {
 			AttachFileDTO attachDTO = new AttachFileDTO();
 			
 			// 연/월/일 폴더 생성
-			File uploadPath = new File("c:\\upload", getFolder());
+			File uploadPath = new File("/Users/apple/upload", getFolder());
 			
 			// 생성된 폴더 존재여부 확인
 			if(!uploadPath.exists()) {	//없으면
@@ -232,7 +232,7 @@ public class UploadController {
 			log.info("upload file size : " + m.getSize());
 			
 			//파일 객체 생성
-			File saveFile = new File("c:\\upload",
+			File saveFile = new File("/Users/apple/upload",
 									 m.getOriginalFilename());
 			
 			try {
